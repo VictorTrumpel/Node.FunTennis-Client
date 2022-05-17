@@ -6,6 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitOverride": true,
+    "strictNullChecks": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
