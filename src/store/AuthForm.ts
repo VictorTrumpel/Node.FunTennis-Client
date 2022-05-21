@@ -1,29 +1,54 @@
-import { makeAutoObservable } from "mobx";
-import { api } from "../api/api";
+import { BaseForm } from "./BaseForm";
+import * as yup from "yup";
+import { FieldState } from "./BaseForm/@types";
 
-class AuthForm {
-  username: string = "";
-  password: string = "";
-  isSending: boolean = false;
+type AuthFormFieldsMap = {
+  username: string;
+  password: string;
+  userData: {
+    firstName: string;
+    lastName: string;
+  };
+};
 
-  constructor() {
-    makeAutoObservable(this);
-  }
+type AuthFormState = {
+  username: FieldState;
+  password: FieldState;
+  userData: {
+    firstName: FieldState;
+    lastName: FieldState;
+  };
+};
 
-  onChange(fieldName: "username" | "password", value: string) {
-    this[fieldName] = value;
-  }
+const formState: AuthFormState = {
+  username: { isError: false },
+  password: { isError: false },
+  userData: {
+    firstName: { isError: false },
+    lastName: { isError: false },
+  },
+};
 
-  async submit() {
-    this.isSending = true;
-    await api
-      .post("/login", {
-        username: this.username,
-        password: this.password,
-      })
-      .catch((e) => console.error(e));
-    this.isSending = false;
-  }
-}
+const fieldsMap: AuthFormFieldsMap = {
+  username: "",
+  password: "",
+  userData: {
+    firstName: "",
+    lastName: "",
+  },
+};
 
-export const authForm = new AuthForm();
+const schemaShape = yup.object().shape({
+  username: yup.string().required().length(5),
+  password: yup.string().required(),
+  userData: yup.object().shape({
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+  }),
+});
+
+export const form = new BaseForm<AuthFormFieldsMap, AuthFormState>(
+  fieldsMap,
+  formState,
+  schemaShape
+);

@@ -1,20 +1,36 @@
 import { Form as BaseForm, FormProps as BaseFormProps } from "react-bootstrap";
-import { FormEvent, ReactNode } from "react";
+import { createContext, FormEvent, ReactNode, useContext } from "react";
+import { BaseForm as BaseFormClass } from "../../store/BaseForm";
 
 type FormProps = Omit<BaseFormProps, "onSubmit"> & {
   onSubmit: () => void;
   children: ReactNode;
+  form: BaseFormClass;
 };
 
-export const Form = ({ children, onSubmit, ...props }: FormProps) => {
+const FormContext = createContext<null | BaseFormClass>(null);
+
+export const Form = ({ children, form, onSubmit, ...props }: FormProps) => {
   const handleEventSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit();
   };
 
   return (
-    <BaseForm onSubmit={handleEventSubmit} autoComplete="off" {...props}>
-      {children}
-    </BaseForm>
+    <FormContext.Provider value={form}>
+      <BaseForm onSubmit={handleEventSubmit} autoComplete="off" {...props}>
+        {children}
+      </BaseForm>
+    </FormContext.Provider>
   );
+};
+
+export const useForm = () => {
+  const formContext = useContext(FormContext);
+
+  if (!formContext) throw new Error("FormContext Provider is missing!");
+
+  const onChange = formContext.onChange.bind(formContext);
+
+  return { ...formContext, onChange };
 };

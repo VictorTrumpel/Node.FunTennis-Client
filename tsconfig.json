@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "strictPropertyInitialization": false,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitOverride": true,
     "strictNullChecks": true,

@@ -1,34 +1,25 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import "./App.scss";
-import { observer } from "mobx-react-lite";
 import { Form } from "./components/form/Form";
-import { authForm } from "./store/AuthForm";
+import { form } from "./store/AuthForm";
 import { Input } from "./components/form/Input";
+import { Button } from "react-bootstrap";
 
-const onChange = authForm.onChange.bind(authForm);
-const submit = authForm.submit.bind(authForm);
+const AuthForm = () => (
+  <Form form={form} onSubmit={form.submit.bind(form)} autoComplete="off">
+    <Input name="username" placeholder="Логин" />
+    <Input name="password" placeholder="Пароль" />
+    <Button type="submit">Войти</Button>
+  </Form>
+);
 
-const App = observer(() => {
-  const { username, password } = authForm;
-
+const App = () => {
   return (
     <div className="App">
-      <Form onSubmit={submit} autoComplete="off">
-        <Input
-          value={username}
-          placeholder="Логин"
-          onChange={onChange.bind(null, "username")}
-        />
-        <Input
-          value={password}
-          placeholder="Пароль"
-          onChange={onChange.bind(null, "password")}
-        />
-        <Button type="submit">Войти</Button>
-      </Form>
+      <h1>HEADER</h1>
+      <AuthForm />
     </div>
   );
-});
+};
 
 export default App;
