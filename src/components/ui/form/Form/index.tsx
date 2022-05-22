@@ -1,6 +1,6 @@
 import { Form as BaseForm, FormProps as BaseFormProps } from "react-bootstrap";
 import React, { createContext, FormEvent, ReactNode, useContext } from "react";
-import { BaseForm as BaseFormClass } from "@store/form/BaseForm";
+import { BaseForm as BaseFormClass } from "@store/BaseForm";
 import { SendingStatus } from "@components/ui/form/Form/SendingStatus";
 
 type FormProps = Omit<BaseFormProps, "onSubmit"> & {

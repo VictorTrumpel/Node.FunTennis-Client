@@ -6,7 +6,7 @@ import {
 } from "react-bootstrap";
 import React, { ChangeEvent } from "react";
 import { useForm } from "./Form";
-import { FieldState } from "@store/form/BaseForm/@types";
+import { FieldState } from "@store/BaseForm/@types";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 

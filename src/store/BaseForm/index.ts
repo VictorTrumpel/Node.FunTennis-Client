@@ -1,8 +1,3 @@
-import { makeAutoObservable, toJS } from "mobx";
-import { AnySchema, ObjectSchema } from "yup";
-import update from "lodash.update";
-import set from "lodash.set";
-import get from "lodash.get";
 import {
   BaseFieldsValuesMap,
   BaseFormState,
@@ -10,6 +5,11 @@ import {
   PrimitiveFieldValue,
   SendingStatus,
 } from "./@types";
+import { makeAutoObservable, toJS } from "mobx";
+import update from "lodash.update";
+import set from "lodash.set";
+import get from "lodash.get";
+import { AnySchema, ObjectSchema } from "yup";
 import { ObjectShape } from "yup/lib/object";
 import { applySchema, ErrorRec } from "@yup/applySchema";
 import { api } from "@api/api";
