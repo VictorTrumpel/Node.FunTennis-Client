@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { UserInfo } from "./@types";
+import { api } from "@api/api";
 
 class User {
   isAuthorized = false;
@@ -10,13 +11,22 @@ class User {
     makeAutoObservable(this);
   }
 
+  async logout() {
+    this.isPendingAuth = true;
+    this.isAuthorized = false;
+    await api.get("/logout").catch((e) => {
+      console.error(e);
+    });
+    this.isPendingAuth = false;
+  }
+
   async auth() {
     this.isPendingAuth = true;
     try {
+      await api.get("/auth");
       this.isAuthorized = true;
     } catch (e) {
       this.isAuthorized = false;
-      console.log(e);
     }
     this.isPendingAuth = false;
   }

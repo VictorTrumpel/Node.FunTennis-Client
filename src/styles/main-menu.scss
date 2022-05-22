@@ -1,0 +1,1 @@
+.main-menu {  min-width: 200px;  max-width: 200px;  flex-direction: column;  .nav-link {    color: black;    &.active {      background-color: $gray-400;      color: black;    }  }}
