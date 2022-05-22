@@ -1,19 +1,18 @@
 import { Form as BaseForm, FormProps as BaseFormProps } from "react-bootstrap";
 import { createContext, FormEvent, ReactNode, useContext } from "react";
-import { BaseForm as BaseFormClass } from "../../store/BaseForm";
+import { BaseForm as BaseFormClass } from "../../../store/form/BaseForm";
 
 type FormProps = Omit<BaseFormProps, "onSubmit"> & {
-  onSubmit: () => void;
   children: ReactNode;
   form: BaseFormClass;
 };
 
 const FormContext = createContext<null | BaseFormClass>(null);
 
-export const Form = ({ children, form, onSubmit, ...props }: FormProps) => {
-  const handleEventSubmit = (e: FormEvent<HTMLFormElement>) => {
+export const Form = ({ children, form, ...props }: FormProps) => {
+  const handleEventSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit();
+    await form.submit();
   };
 
   return (

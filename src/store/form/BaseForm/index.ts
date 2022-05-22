@@ -10,7 +10,8 @@ import {
   PrimitiveFieldValue,
 } from "./@types";
 import { ObjectShape } from "yup/lib/object";
-import { applySchema, ErrorRec } from "../../helpers/applySchema";
+import { applySchema, ErrorRec } from "@yup/applySchema";
+import { api } from "@api/api";
 
 export class BaseForm<
   FieldsMap extends BaseFieldsValuesMap = BaseFieldsValuesMap,
@@ -24,12 +25,14 @@ export class BaseForm<
   constructor(
     fieldsMap: FieldsMap,
     formState: FormState,
-    private readonly schema: ObjectSchema<ObjectShape>
+    private readonly schema: ObjectSchema<ObjectShape>,
+    private readonly request: string
   ) {
     makeAutoObservable(this);
     this.fields = fieldsMap;
     this.formState = formState;
     this.schema = schema;
+    this.request = request;
   }
 
   private clearFieldError = (fieldsState: BaseFormState, fieldName: string) => {
@@ -81,12 +84,7 @@ export class BaseForm<
       return;
     }
 
-    // await api
-    //   .post("/login", {
-    //     username: this.username,
-    //     password: this.password,
-    //   })
-    //   .catch((e) => console.error(e));
+    await api.post(this.request, this.fields).catch((e) => console.error(e));
     this.isSending = false;
   }
 }

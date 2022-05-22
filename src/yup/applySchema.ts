@@ -13,15 +13,12 @@ export const applySchema: ApplySchema = async (schema, fields) => {
     await schema.validate(fields, {
       abortEarly: false,
     });
+    return { isValid: true };
   } catch (e) {
-    let errorRec: ErrorRec[] = [];
-    if (e instanceof ValidationError) {
-      errorRec = parseYupErrors(e.errors);
-      return { isValid: false, errorRec };
-    }
+    const errorRec: ErrorRec[] =
+      e instanceof ValidationError ? parseYupErrors(e.errors) : [];
     return { isValid: false, errorRec };
   }
-  return { isValid: true };
 };
 
 export const parseYupErrors = (
