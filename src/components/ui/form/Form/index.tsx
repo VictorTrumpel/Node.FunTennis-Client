@@ -1,6 +1,7 @@
 import { Form as BaseForm, FormProps as BaseFormProps } from "react-bootstrap";
-import { createContext, FormEvent, ReactNode, useContext } from "react";
-import { BaseForm as BaseFormClass } from "../../../store/form/BaseForm";
+import React, { createContext, FormEvent, ReactNode, useContext } from "react";
+import { BaseForm as BaseFormClass } from "@store/form/BaseForm";
+import { SendingStatus } from "@components/ui/form/Form/SendingStatus";
 
 type FormProps = Omit<BaseFormProps, "onSubmit"> & {
   children: ReactNode;
@@ -19,6 +20,7 @@ export const Form = ({ children, form, ...props }: FormProps) => {
     <FormContext.Provider value={form}>
       <BaseForm onSubmit={handleEventSubmit} autoComplete="off" {...props}>
         {children}
+        <SendingStatus />
       </BaseForm>
     </FormContext.Provider>
   );

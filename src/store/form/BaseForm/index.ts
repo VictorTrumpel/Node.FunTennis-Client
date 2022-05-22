@@ -8,10 +8,12 @@ import {
   BaseFormState,
   FieldState,
   PrimitiveFieldValue,
+  SendingStatus,
 } from "./@types";
 import { ObjectShape } from "yup/lib/object";
 import { applySchema, ErrorRec } from "@yup/applySchema";
 import { api } from "@api/api";
+import { AxiosError } from "axios";
 
 export class BaseForm<
   FieldsMap extends BaseFieldsValuesMap = BaseFieldsValuesMap,
@@ -19,6 +21,7 @@ export class BaseForm<
 > {
   formState: FormState;
   fields: FieldsMap;
+  sendingStatus: SendingStatus;
   isSending = false;
   submitCount = 0;
 
@@ -84,7 +87,20 @@ export class BaseForm<
       return;
     }
 
-    await api.post(this.request, this.fields).catch((e) => console.error(e));
+    try {
+      await api.post(this.request, this.fields);
+      this.sendingStatus = { isSuccess: true, message: "Успешно отправлено" };
+    } catch (e) {
+      let errMessage = "Ошибка при отправке";
+      if (e instanceof AxiosError) {
+        errMessage = JSON.parse(e.request.response).message || e.message;
+      }
+
+      this.sendingStatus = {
+        isSuccess: false,
+        message: errMessage,
+      };
+    }
     this.isSending = false;
   }
 }
