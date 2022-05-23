@@ -1,9 +1,12 @@
+@import "styles/_variables";
 @import "~bootstrap/scss/bootstrap";
+
 @import "styles/auth-form";
 @import "styles/auth-page";
 @import "styles/default-layout";
 @import "styles/main-menu";
 @import "styles/paper";
+@import "styles/user-page";
 
 body {
   height: 100vh;
@@ -15,4 +18,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.row > * {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }

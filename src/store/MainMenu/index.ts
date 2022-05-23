@@ -31,4 +31,8 @@ export const mainMenu = new MainMenu([
     url: "/users",
     label: "Все участники",
   },
+  {
+    url: "/create",
+    label: "Добавить тренировку",
+  },
 ]);

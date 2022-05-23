@@ -1,28 +1,18 @@
-import get from "lodash.get";
 import {
   Form as BaseForm,
   FormControlProps,
   FloatingLabel,
 } from "react-bootstrap";
-import React, { ChangeEvent } from "react";
-import { useForm } from "./Form";
-import { FieldState } from "@store/BaseForm/@types";
-import { toJS } from "mobx";
+import React from "react";
 import { observer } from "mobx-react-lite";
+import { useFormInput } from "@hooks/useFormInput";
 
 type InputProps = Omit<FormControlProps, "onChange"> & {
   name: string;
 };
 
 export const Input = observer(({ name, placeholder, ...props }: InputProps) => {
-  const { fields, formState, onChange } = useForm();
-
-  const value = get(toJS(fields), name) as string | undefined;
-  const fieldState = get(toJS(formState), name) as FieldState;
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(name, e.target.value);
-  };
+  const { value, handleChange, fieldState } = useFormInput<string>(name);
 
   return (
     <BaseForm.Group>
