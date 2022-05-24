@@ -18,7 +18,7 @@ type InputGroupProps = Omit<BaseInputGroupProps, "onChange"> & {
 
 export const InputGroup = observer(
   ({ name, startText, endText, ...props }: InputGroupProps) => {
-    const { handleChange, fieldState } = useFormInput(name);
+    const { handleChange, fieldState, defaultValue } = useFormInput(name);
 
     return (
       <Form.Group>
@@ -26,7 +26,11 @@ export const InputGroup = observer(
           <Visible condition={!!startText}>
             <BaseInputGroup.Text>{startText}</BaseInputGroup.Text>
           </Visible>
-          <FormControl isInvalid={fieldState.isError} onChange={handleChange} />
+          <FormControl
+            defaultValue={defaultValue}
+            isInvalid={fieldState.isError}
+            onChange={handleChange}
+          />
           <Visible condition={!!endText}>
             <BaseInputGroup.Text>{endText}</BaseInputGroup.Text>
           </Visible>

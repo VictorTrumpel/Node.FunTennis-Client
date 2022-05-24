@@ -13,7 +13,7 @@ type InputProps = Omit<FormControlProps, "onChange"> & {
 };
 
 export const Input = observer(({ name, placeholder, ...props }: InputProps) => {
-  const { handleChange, fieldState } = useFormInput(name);
+  const { handleChange, fieldState, defaultValue } = useFormInput(name);
 
   return (
     <BaseForm.Group>
@@ -23,6 +23,7 @@ export const Input = observer(({ name, placeholder, ...props }: InputProps) => {
           placeholder={placeholder}
           isInvalid={fieldState.isError}
           onChange={handleChange}
+          defaultValue={defaultValue}
           {...props}
         />
         <BaseForm.Control.Feedback type="invalid">

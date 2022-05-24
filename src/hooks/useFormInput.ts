@@ -5,8 +5,9 @@ import { FieldState } from "@store/BaseForm/@types";
 import { ChangeEvent } from "react";
 
 export const useFormInput = (name: string) => {
-  const { formState, onChange } = useForm();
+  const { formState, onChange, defaultValues } = useForm();
 
+  const defaultValue = get(toJS(defaultValues), name);
   const fieldState = get(toJS(formState), name) as FieldState;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -21,5 +22,6 @@ export const useFormInput = (name: string) => {
     handleChange,
     handleSelect,
     fieldState,
+    defaultValue,
   };
 };

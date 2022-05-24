@@ -11,7 +11,7 @@ type AuthFormFieldsMap = {
   description: string;
   level: number | null;
   balance: number;
-  gender: "M" | "Ж" | null;
+  gender: "М" | "Ж" | null;
   role: "student" | "coach" | null;
 };
 

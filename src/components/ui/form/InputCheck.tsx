@@ -11,7 +11,7 @@ type InputCheckProps = Omit<FormCheckProps, "onChange"> & {
 
 export const InputCheck = observer(
   ({ name, options, inline, type }: InputCheckProps) => {
-    const { handleChange, fieldState } = useFormInput(name);
+    const { handleChange, fieldState, defaultValue } = useFormInput(name);
 
     return (
       <Form.Group style={{ minHeight: "58px" }}>
@@ -19,6 +19,7 @@ export const InputCheck = observer(
           <Form.Check
             key={`${value}-${label}`}
             isInvalid={fieldState.isError}
+            defaultChecked={value === defaultValue}
             inline={inline}
             label={label}
             value={value}

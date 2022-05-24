@@ -20,12 +20,16 @@ type InputSelectProps = Omit<FormSelectProps, "onChange"> & {
 
 export const InputSelect = observer(
   ({ name, options, placeholder }: InputSelectProps) => {
-    const { handleSelect, fieldState } = useFormInput(name);
+    const { handleSelect, fieldState, defaultValue } = useFormInput(name);
 
     return (
       <Form.Group>
         <FloatingLabel label={placeholder || name}>
-          <Form.Select isInvalid={fieldState.isError} onChange={handleSelect}>
+          <Form.Select
+            defaultValue={defaultValue}
+            isInvalid={fieldState.isError}
+            onChange={handleSelect}
+          >
             <option value="">не выбрано</option>
             {options.map(({ label, value }) => (
               <option key={`${label}-${value}`} value={value}>
