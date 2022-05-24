@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { AddUserForm } from "@components/common/UserForm";
+import { AddUserForm } from "@components/common/UserForms/AddUserFrom";
 
 export const AddUserPage = () => {
   return (
