@@ -1,11 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import { UserInfo } from "./@types";
 import { api } from "@api/api";
 
 class User {
   isAuthorized = false;
   isPendingAuth = false;
-  userInfo: UserInfo = null;
 
   constructor() {
     makeAutoObservable(this);

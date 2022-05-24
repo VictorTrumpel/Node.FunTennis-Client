@@ -33,10 +33,10 @@ export const roleOptions: InputSelectOption[] = [
 export const genderOptions: InputSelectOption[] = [
   {
     label: "Мужчина",
-    value: "М",
+    value: "1",
   },
   {
     label: "Женщина",
-    value: "Ж",
+    value: "0",
   },
 ];

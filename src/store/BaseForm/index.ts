@@ -14,25 +14,24 @@ import { ObjectShape } from "yup/lib/object";
 import { applySchema, ErrorRec } from "@yup/applySchema";
 import { api } from "@api/api";
 import { AxiosError } from "axios";
+import clonedeep from "lodash.clonedeep";
 
 export class BaseForm<
   FieldsMap extends BaseFieldsValuesMap = BaseFieldsValuesMap,
   FormState extends BaseFormState = BaseFormState
 > {
-  formState: FormState;
-  fields: FieldsMap;
   sendingStatus: SendingStatus;
   isSending = false;
   submitCount = 0;
 
   constructor(
-    fieldsMap: FieldsMap,
-    formState: FormState,
+    public fieldsMap: FieldsMap,
+    public formState: FormState,
     private readonly schema: ObjectSchema<ObjectShape>,
     private readonly request: string
   ) {
     makeAutoObservable(this);
-    this.fields = fieldsMap;
+    this.fieldsMap = fieldsMap;
     this.formState = formState;
     this.schema = schema;
     this.request = request;
@@ -54,8 +53,12 @@ export class BaseForm<
     });
   }
 
+  resetFieldsMap(fields: FieldsMap) {
+    this.fieldsMap = clonedeep(fields);
+  }
+
   onChange(fieldName: string, value: PrimitiveFieldValue) {
-    set(this.fields, fieldName, value);
+    set(this.fieldsMap, fieldName, value);
 
     if (this.submitCount === 0) return;
 
@@ -78,7 +81,7 @@ export class BaseForm<
     this.isSending = true;
     this.submitCount += 1;
 
-    const validInfo = await applySchema(this.schema, toJS(this.fields));
+    const validInfo = await applySchema(this.schema, toJS(this.fieldsMap));
 
     if (!validInfo.isValid) {
       validInfo.errorRec.forEach((error) => {
@@ -88,7 +91,7 @@ export class BaseForm<
     }
 
     try {
-      await api.post(this.request, this.fields);
+      await api.post(this.request, this.fieldsMap);
       this.sendingStatus = { isSuccess: true, message: "Успешно отправлено" };
     } catch (e) {
       let errMessage = "Ошибка при отправке";

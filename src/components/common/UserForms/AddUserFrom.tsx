@@ -1,12 +1,12 @@
 import { Button } from "react-bootstrap";
 import { Form } from "@components/ui/form/Form";
-import { initAddUserForm } from "./formConfig";
+import { initUserForm } from "./formConfig";
 import { useState } from "react";
 
 import { UserFields } from "@components/common/UserForms/UserFields";
 
 export const AddUserForm = () => {
-  const [addUserForm] = useState(initAddUserForm);
+  const [addUserForm] = useState(initUserForm);
 
   return (
     <Form form={addUserForm} autoComplete="off">

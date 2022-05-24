@@ -1,19 +1,9 @@
 import { FieldState } from "@store/BaseForm/@types";
 import * as yup from "yup";
 import { BaseForm } from "@store/BaseForm";
+import { UserInfo } from "@store/User/@types";
 
-type AuthFormFieldsMap = {
-  username: string;
-  password: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  description: string;
-  level: number | null;
-  balance: number;
-  gender: "М" | "Ж" | null;
-  role: "student" | "coach" | null;
-};
+type AuthFormFieldsMap = Omit<UserInfo, "_id">;
 
 type AuthFormState = {
   username: FieldState;
@@ -63,14 +53,11 @@ const schemaShape = yup.object().shape({
   description: yup.string().nullable().max(250),
   level: yup.number().required(),
   balance: yup.number().nullable(),
-  gender: yup
-    .string()
-    .required()
-    .test((value) => ["М", "Ж"].includes(value as string)),
+  gender: yup.string().required(),
   role: yup.string().required(),
 });
 
-export const initAddUserForm = () =>
+export const initUserForm = () =>
   new BaseForm<AuthFormFieldsMap, AuthFormState>(
     fieldsMap,
     formState,
