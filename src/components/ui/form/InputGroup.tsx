@@ -2,10 +2,13 @@ import {
   InputGroup as BaseInputGroup,
   FormControl,
   InputGroupProps as BaseInputGroupProps,
+  Form,
+  Form as BaseForm,
 } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { useFormInput } from "@hooks/useFormInput";
 import { Visible } from "@components/ui/Visible";
+import React from "react";
 
 type InputGroupProps = Omit<BaseInputGroupProps, "onChange"> & {
   name: string;
@@ -15,18 +18,23 @@ type InputGroupProps = Omit<BaseInputGroupProps, "onChange"> & {
 
 export const InputGroup = observer(
   ({ name, startText, endText, ...props }: InputGroupProps) => {
-    const { value, handleChange } = useFormInput<string>(name);
+    const { handleChange, fieldState } = useFormInput(name);
 
     return (
-      <BaseInputGroup {...props}>
-        <Visible condition={!!startText}>
-          <BaseInputGroup.Text>{startText}</BaseInputGroup.Text>
-        </Visible>
-        <FormControl value={value} onChange={handleChange} />
-        <Visible condition={!!endText}>
-          <BaseInputGroup.Text>{endText}</BaseInputGroup.Text>
-        </Visible>
-      </BaseInputGroup>
+      <Form.Group>
+        <BaseInputGroup {...props}>
+          <Visible condition={!!startText}>
+            <BaseInputGroup.Text>{startText}</BaseInputGroup.Text>
+          </Visible>
+          <FormControl isInvalid={fieldState.isError} onChange={handleChange} />
+          <Visible condition={!!endText}>
+            <BaseInputGroup.Text>{endText}</BaseInputGroup.Text>
+          </Visible>
+        </BaseInputGroup>
+        <BaseForm.Control.Feedback type="invalid">
+          {fieldState.errMessage}
+        </BaseForm.Control.Feedback>
+      </Form.Group>
     );
   }
 );
