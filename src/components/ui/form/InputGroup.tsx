@@ -7,7 +7,7 @@ import {
 } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { useFormInput } from "@hooks/useFormInput";
-import { Visible } from "@components/ui/Visible";
+import { Visible } from "@components/common/Visible";
 import React from "react";
 
 type InputGroupProps = Omit<BaseInputGroupProps, "onChange"> & {

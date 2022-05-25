@@ -6,7 +6,7 @@ import { SendingStatus } from "@components/ui/form/Form/SendingStatus";
 type FormProps<FieldsMap extends Record<string, any> = Record<string, any>> =
   Omit<BaseFormProps, "onSubmit"> & {
     children: ReactNode;
-    defaultValues?: FieldsMap;
+    defaultValues: FieldsMap | null;
     form: BaseFormClass;
   };
 

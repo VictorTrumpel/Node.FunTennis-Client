@@ -9,7 +9,7 @@ export const AddUserForm = () => {
   const [addUserForm] = useState(initUserForm);
 
   return (
-    <Form form={addUserForm} autoComplete="off">
+    <Form form={addUserForm} defaultValues={null} autoComplete="off">
       <UserFields />
       <div className="mt-3 d-flex justify-content-end">
         <Button type="submit" variant="outline-primary">

@@ -14,7 +14,7 @@ export const AuthForm = () => {
   return (
     <div className="auth-from_container">
       <h5 className="title">Войдите в систему</h5>
-      <Form form={authForm} autoComplete="off">
+      <Form form={authForm} defaultValues={null} autoComplete="off">
         <Stack gap={3}>
           <Input name="username" placeholder="Логин" />
           <Input type="password" name="password" placeholder="Пароль" />
