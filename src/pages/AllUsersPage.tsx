@@ -23,15 +23,18 @@ export const AllUsersPage = () => {
 
   return (
     <Container fluid className="paper">
-      {users?.map((user) => (
-        <Alert
-          key={user?._id}
-          variant="secondary"
-          onClick={handleClickUser.bind(null, user?._id)}
-        >
-          {user?.username}
-        </Alert>
-      ))}
+      {users?.map((user) => {
+        if (user?.username === "admin") return <></>;
+        return (
+          <Alert
+            key={user?._id}
+            variant="secondary"
+            onClick={handleClickUser.bind(null, user?._id)}
+          >
+            {user?.fullName}
+          </Alert>
+        );
+      })}
     </Container>
   );
 };

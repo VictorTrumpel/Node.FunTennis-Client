@@ -64,3 +64,11 @@ export const initUserForm = () =>
     schemaShape,
     "/signup"
   );
+
+export const initEditUserForm = (request: string) =>
+  new BaseForm<AuthFormFieldsMap, AuthFormState>(
+    fieldsMap,
+    formState,
+    schemaShape,
+    request
+  );

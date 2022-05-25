@@ -9,31 +9,27 @@ type InputCheckProps = Omit<FormCheckProps, "onChange"> & {
   options: InputSelectOption[];
 };
 
-export const InputCheck = ({ options, ...props }: InputCheckProps) => {
-  return (
-    <Form.Group style={{ minHeight: "58px" }}>
-      {options.map((option) => {
-        return (
-          <InputCheckOption key={`${option.value}`} {...props} {...option} />
-        );
-      })}
-    </Form.Group>
-  );
-};
-
-type InputCheckOptionProps = Omit<InputCheckProps, "options">;
-
-const InputCheckOption = observer(
-  ({ value, name, ...props }: InputCheckOptionProps) => {
+export const InputCheck = observer(
+  ({ name, options, inline, type }: InputCheckProps) => {
     const { handleChange, fieldState, defaultValue } = useFormInput(name);
 
     return (
-      <Form.Check
-        {...props}
-        defaultChecked={value === defaultValue}
-        isInvalid={fieldState.isError}
-        onChange={handleChange}
-      />
+      <Form.Group style={{ minHeight: "58px" }}>
+        {options.map(({ value, label }) => (
+          <Form.Check
+            key={`${value}-${label}`}
+            isInvalid={fieldState.isError}
+            defaultChecked={value === defaultValue}
+            inline={inline}
+            label={label}
+            value={value}
+            name={name}
+            type={type}
+            id={label}
+            onChange={handleChange}
+          />
+        ))}
+      </Form.Group>
     );
   }
 );
