@@ -1,8 +1,8 @@
 import { Form } from "@components/ui/form/Form";
-import { UserFields } from "@components/common/UserForms/UserFields";
+import { UserFields } from "@components/common/UserForm/UserFields";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
-import { initEditUserForm } from "@components/common/UserForms/formConfig";
+import { initEditUserForm } from "@components/common/UserForm/formConfig";
 import { useMatch, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { userApi } from "@api/UserApi";

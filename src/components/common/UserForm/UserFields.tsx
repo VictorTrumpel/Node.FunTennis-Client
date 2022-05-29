@@ -7,7 +7,7 @@ import {
   genderOptions,
   levelOptions,
   roleOptions,
-} from "@components/common/UserForms/formData";
+} from "@components/common/UserForm/formData";
 import { InputSelect } from "@components/ui/form/InputSelect";
 
 export const UserFields = () => {

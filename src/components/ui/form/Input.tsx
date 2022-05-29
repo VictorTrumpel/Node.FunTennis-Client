@@ -1,35 +1,22 @@
-import {
-  Form as BaseForm,
-  FormControlProps,
-  FloatingLabel,
-} from "react-bootstrap";
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { useFormInput } from "@hooks/useFormInput";
+import { ModelInput, ModelInputProps } from "@components/ui/form/ModelInput";
 
-type InputProps = Omit<FormControlProps, "onChange"> & {
+type InputProps = Omit<ModelInputProps, "onChange"> & {
   name: string;
   maxLength?: number;
 };
 
-export const Input = observer(({ name, placeholder, ...props }: InputProps) => {
+export const Input = observer(({ name, ...props }: InputProps) => {
   const { handleChange, fieldState, defaultValue } = useFormInput(name);
 
   return (
-    <BaseForm.Group>
-      <FloatingLabel label={placeholder || name}>
-        <BaseForm.Control
-          type="text"
-          placeholder={placeholder}
-          isInvalid={fieldState.isError}
-          onChange={handleChange}
-          defaultValue={defaultValue}
-          {...props}
-        />
-        <BaseForm.Control.Feedback type="invalid">
-          {fieldState.errMessage}
-        </BaseForm.Control.Feedback>
-      </FloatingLabel>
-    </BaseForm.Group>
+    <ModelInput
+      onChange={handleChange}
+      fieldState={fieldState}
+      defaultValue={defaultValue}
+      {...props}
+    />
   );
 });

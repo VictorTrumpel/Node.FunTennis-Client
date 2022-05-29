@@ -3,7 +3,7 @@ import { Form } from "@components/ui/form/Form";
 import { initUserForm } from "./formConfig";
 import { useState } from "react";
 
-import { UserFields } from "@components/common/UserForms/UserFields";
+import { UserFields } from "@components/common/UserForm/UserFields";
 
 export const AddUserForm = () => {
   const [addUserForm] = useState(initUserForm);

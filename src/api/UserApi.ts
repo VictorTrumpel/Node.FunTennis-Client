@@ -6,8 +6,19 @@ export class UserApi {
 
   async getUser(id: string): Promise<UserInfo | undefined> {
     try {
-      const axiosResponse = await api.get<UserInfo>(`${this.baseUrl}/${id}`);
-      return axiosResponse.data;
+      const response = await api.get<UserInfo>(`${this.baseUrl}/${id}`);
+      return response.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async searchByName(fullName: string = ""): Promise<UserInfo[] | undefined> {
+    try {
+      const response = await api.get<UserInfo[]>(
+        `${this.baseUrl}/searchByName?fullName=${fullName}`
+      );
+      return response.data;
     } catch (e) {
       console.error(e);
     }

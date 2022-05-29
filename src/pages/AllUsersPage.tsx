@@ -1,39 +1,48 @@
-import { Container, Alert } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { api } from "@api/api";
+import { Container, Spinner } from "react-bootstrap";
+import { useEffect } from "react";
 import { UserInfo } from "@store/User/@types";
-import { useNavigate } from "react-router-dom";
+import { userApi } from "@api/UserApi";
+import { ModelInput } from "@components/ui/form/ModelInput";
+import { useDebounceInput } from "@hooks/useDebounceInput";
+import { useQuery } from "react-query";
+import { UserTab } from "@components/common/UserTab";
+import { Visible } from "@components/common/Visible";
 
 export const AllUsersPage = () => {
-  const [users, setUsers] = useState<UserInfo[] | null>(null);
-  const navigate = useNavigate();
-
-  const handleClickUser = (id?: string) => {
-    navigate(`/users/${id}`);
-  };
+  const { value, debounceChange } = useDebounceInput();
+  const {
+    data: users,
+    refetch,
+    isFetching,
+  } = useQuery<UserInfo[] | undefined>(
+    "users",
+    async () => await userApi.searchByName(value),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
-    api
-      .get<UserInfo[]>("/users")
-      .then((users) => {
-        setUsers(users.data);
-      })
-      .catch((e) => console.error(e));
-  }, []);
+    (async () => {
+      await refetch();
+    })();
+  }, [value]);
 
   return (
     <Container fluid className="paper">
+      <div className="mb-3">
+        <ModelInput
+          placeholder="Поиск"
+          onChange={debounceChange}
+          endAdornment={() => (
+            <Visible condition={isFetching}>
+              <Spinner animation="border" />
+            </Visible>
+          )}
+        />
+      </div>
       {users?.map((user) => {
-        if (user?.username === "admin") return <></>;
-        return (
-          <Alert
-            key={user?._id}
-            variant="secondary"
-            onClick={handleClickUser.bind(null, user?._id)}
-          >
-            {user?.fullName}
-          </Alert>
-        );
+        return <UserTab key={user?._id} userInfo={user} />;
       })}
     </Container>
   );

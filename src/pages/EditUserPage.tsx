@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { EditUserForm } from "@components/common/UserForms/EditUserForm";
+import { EditUserForm } from "@components/common/UserForm/EditUserForm";
 
 export const EditUserPage = () => {
   return (
