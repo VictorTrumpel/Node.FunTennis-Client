@@ -18,7 +18,7 @@ export const UserTab = ({ userInfo }: UserTabProps) => {
   if (userInfo?.username === "admin") return <Fragment />;
 
   return (
-    <Alert variant="secondary" onClick={handleClickUser}>
+    <Alert variant="secondary" onClick={handleClickUser} draggable={true}>
       {userInfo?.fullName}
     </Alert>
   );

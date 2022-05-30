@@ -7,7 +7,6 @@ export const useDebounceInput = (delay: number = 500) => {
   const debounceChange = useDebounce(handleChange, delay);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
     setValue(e.target.value);
   }
 
