@@ -9,6 +9,7 @@ import {
   roleOptions,
 } from "@components/common/UserForm/formData";
 import { InputSelect } from "@components/ui/form/InputSelect";
+import { InputUser } from "@components/ui/form/InputUser";
 
 export const UserFields = () => {
   return (
@@ -97,6 +98,9 @@ export const UserFields = () => {
                 options={levelOptions}
               />
             </Stack>
+          </Col>
+          <Col xs={6} className="mt-3">
+            <InputUser />
           </Col>
         </Row>
       </Stack>

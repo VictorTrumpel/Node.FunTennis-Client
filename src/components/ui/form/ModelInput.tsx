@@ -12,6 +12,7 @@ export type ModelInputProps = FormControlProps & {
   maxLength?: number;
   fieldState?: FieldState;
   endAdornment?: () => ReactNode;
+  list?: string;
 };
 
 export const ModelInput = ({

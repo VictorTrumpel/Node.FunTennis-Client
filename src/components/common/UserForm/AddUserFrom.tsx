@@ -11,6 +11,7 @@ export const AddUserForm = () => {
   return (
     <Form form={addUserForm} defaultValues={null} autoComplete="off">
       <UserFields />
+
       <div className="mt-3 d-flex justify-content-end">
         <Button type="submit" variant="outline-primary">
           Добавить участника
