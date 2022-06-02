@@ -4,7 +4,8 @@ export type PrimitiveFieldValue =
   | null
   | undefined
   | boolean
-  | bigint;
+  | bigint
+  | string[];
 
 export type FieldValue = PrimitiveFieldValue | PrimitiveFieldValue[];
 export type FieldState = {
