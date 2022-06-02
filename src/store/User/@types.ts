@@ -9,5 +9,5 @@ export type UserInfo = {
   level: number | null;
   balance: number;
   gender: 0 | 1 | null;
-  role: "student" | "coach" | null;
+  role: "student" | "coach" | "";
 };

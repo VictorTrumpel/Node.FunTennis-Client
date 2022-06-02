@@ -3,21 +3,9 @@ import * as yup from "yup";
 import { BaseForm } from "@store/BaseForm";
 import { UserInfo } from "@store/User/@types";
 
-type AuthFormFieldsMap = Omit<UserInfo, "_id"> & { users: string[] };
+type AuthFormFieldsMap = Omit<UserInfo, "_id">;
 
-type AuthFormState = {
-  username: FieldState;
-  password: FieldState;
-  fullName: FieldState;
-  email: FieldState;
-  phone: FieldState;
-  description: FieldState;
-  level: FieldState;
-  balance: FieldState;
-  gender: FieldState;
-  role: FieldState;
-  users: FieldState;
-};
+type AuthFormState = Record<keyof AuthFormFieldsMap, FieldState>;
 
 const formState: AuthFormState = {
   username: { isError: false },
@@ -30,7 +18,6 @@ const formState: AuthFormState = {
   balance: { isError: false },
   gender: { isError: false },
   role: { isError: false },
-  users: { isError: false },
 };
 
 const fieldsMap: AuthFormFieldsMap = {
@@ -43,8 +30,7 @@ const fieldsMap: AuthFormFieldsMap = {
   level: null,
   balance: 0,
   gender: null,
-  role: null,
-  users: [],
+  role: "",
 };
 
 const schemaShape = yup.object().shape({
@@ -58,7 +44,6 @@ const schemaShape = yup.object().shape({
   balance: yup.number().nullable(),
   gender: yup.string().required(),
   role: yup.string().required(),
-  users: yup.array(),
 });
 
 export const initUserForm = () =>

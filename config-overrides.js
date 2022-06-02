@@ -9,6 +9,7 @@ module.exports = function override(config) {
     "@yup": "src/yup",
     "@pages": "src/pages",
     "@hooks": "src/hooks",
+    "@constants": "src/constants",
   })(config);
 
   return config;
