@@ -2,7 +2,10 @@ import { userApi } from "@api/UserApi";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { InputSelectOption } from "@components/ui/form/InputSelect";
 import { observer } from "mobx-react-lite";
-import { ModelInputAutocomplete } from "@components/ui/form/ModelInputAutocomplete";
+import {
+  ModelInputAutocomplete,
+  ModelInputAutocompleteProps,
+} from "@components/ui/form/ModelInputAutocomplete";
 import { useForm } from "@components/ui/form/Form";
 import { InputUserTab } from "./InputUserTab";
 import get from "lodash.get";
@@ -10,14 +13,17 @@ import { toJS } from "mobx";
 import { UserInfo } from "@store/User/@types";
 import { FieldState } from "@store/BaseForm/@types";
 
-type InputUserProps = {
+type InputUserProps = Omit<
+  ModelInputAutocompleteProps,
+  "options" | "handleSelect"
+> & {
   name: string;
   placeholder?: string;
   role: UserInfo["role"];
 };
 
 export const InputUser = observer(
-  ({ name, placeholder, role }: InputUserProps) => {
+  ({ name, placeholder, role, disabled, ...props }: InputUserProps) => {
     const { formState, onChange, defaultValues } = useForm();
 
     const defaultIds = useMemo(() => get(toJS(defaultValues), name), []);
@@ -29,6 +35,7 @@ export const InputUser = observer(
     const [users, setUsers] = useState<InputSelectOption[]>([]);
 
     const onUserDelete = useCallback((deleteId: string) => {
+      if (disabled) return;
       setSelectedUsersIds((ids) => {
         return [...ids].filter((id) => id !== deleteId);
       });
@@ -60,7 +67,7 @@ export const InputUser = observer(
       <div className="input-user">
         <ul className="input-user_list">
           {selectedUsersIds.map((id) => (
-            <InputUserTab userId={id} onDelete={onUserDelete} />
+            <InputUserTab key={id} userId={id} onDelete={onUserDelete} />
           ))}
         </ul>
         <ModelInputAutocomplete
@@ -69,6 +76,8 @@ export const InputUser = observer(
           options={users}
           handleSelect={onUserSelect}
           placeholder={placeholder || name}
+          disabled={disabled}
+          {...props}
         />
       </div>
     );

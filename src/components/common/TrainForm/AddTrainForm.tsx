@@ -1,11 +1,11 @@
 import { Form } from "@components/ui/form/Form";
 import React, { useState } from "react";
-import { initTrainForm } from "@components/common/TrainForm/formConfig";
+import { initAddTrainForm } from "@components/common/TrainForm/formConfig";
 import { TrainFields } from "@components/common/TrainForm/TrainFields";
 import { Button } from "react-bootstrap";
 
-export const TrainForm = () => {
-  const [trainForm] = useState(initTrainForm);
+export const AddTrainForm = () => {
+  const [trainForm] = useState(initAddTrainForm);
 
   return (
     <Form form={trainForm} defaultValues={null} autoComplete="off">

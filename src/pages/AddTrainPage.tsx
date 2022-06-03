@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
-import { TrainForm } from "@components/common/TrainForm";
+import { AddTrainForm } from "@components/common/TrainForm/AddTrainForm";
 
 export const AddTrainPage = () => {
   return (
     <Container fluid className="paper">
-      <TrainForm />
+      <AddTrainForm />
     </Container>
   );
 };

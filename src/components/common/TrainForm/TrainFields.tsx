@@ -3,13 +3,22 @@ import { InputUser } from "@components/ui/form/InputUser";
 import React from "react";
 import { Input } from "@components/ui/form/Input";
 
-export const TrainFields = () => {
+type TrainFieldsProps = {
+  readonly?: boolean;
+};
+
+export const TrainFields = ({ readonly }: TrainFieldsProps) => {
   return (
     <Stack gap={3}>
       <h5>Данные о тренировке:</h5>
       <Row>
         <Col xs={12} md={4}>
-          <Input type="date" name="date" placeholder="Дата" />
+          <Input
+            type="date"
+            name="date"
+            placeholder="Дата"
+            disabled={readonly}
+          />
         </Col>
       </Row>
       <Row>
@@ -18,6 +27,7 @@ export const TrainFields = () => {
             name="participants"
             placeholder="Выбрать ученика"
             role="student"
+            disabled={readonly}
           />
         </Col>
       </Row>
@@ -27,6 +37,7 @@ export const TrainFields = () => {
             name="trainer"
             placeholder="Выбрать тренера"
             role="coach"
+            disabled={readonly}
           />
         </Col>
       </Row>
@@ -38,6 +49,7 @@ export const TrainFields = () => {
             name="info"
             maxLength={250}
             placeholder="Информация о тренировке"
+            disabled={readonly}
           />
         </Col>
       </Row>

@@ -1,13 +1,9 @@
 import { FieldState } from "@store/BaseForm/@types";
 import * as yup from "yup";
 import { BaseForm } from "@store/BaseForm";
+import { TrainInfo } from "@api/TrainApi";
 
-type TrainFormFieldsMap = {
-  participants: string[];
-  trainer: string[];
-  date: Date | null;
-  info: string;
-};
+type TrainFormFieldsMap = Omit<TrainInfo, "_id">;
 
 type TrainFormState = Record<keyof TrainFormFieldsMap, FieldState>;
 
@@ -32,10 +28,18 @@ const schemaShape = yup.object().shape({
   info: yup.string().nullable(),
 });
 
-export const initTrainForm = () =>
+export const initAddTrainForm = () =>
   new BaseForm<TrainFormFieldsMap, TrainFormState>(
     fieldsMap,
     formState,
     schemaShape,
     "/train"
+  );
+
+export const initEditTrainForm = (request: string) =>
+  new BaseForm<TrainFormFieldsMap, TrainFormState>(
+    fieldsMap,
+    formState,
+    schemaShape,
+    request
   );

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { InputSelectOption } from "@components/ui/form/InputSelect";
 import { ModelInput, ModelInputProps } from "@components/ui/form/ModelInput";
 
-type ModelInputAutocompleteProps = ModelInputProps & {
+export type ModelInputAutocompleteProps = ModelInputProps & {
   name: string;
   options: InputSelectOption[];
   handleSelect: (checkedOptions: InputSelectOption[]) => void;

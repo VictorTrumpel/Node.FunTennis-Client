@@ -35,4 +35,8 @@ export const mainMenu = new MainMenu([
     url: "/create",
     label: "Добавить тренировку",
   },
+  {
+    url: "/train",
+    label: "Все тренировки",
+  },
 ]);

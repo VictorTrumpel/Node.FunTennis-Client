@@ -10,6 +10,8 @@ import { AllUsersPage } from "@pages/AllUsersPage";
 import { EditUserPage } from "@pages/EditUserPage";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { AddTrainPage } from "@pages/AddTrainPage";
+import { AllTrainPage } from "@pages/AllTrainPage";
+import { EditTrainPage } from "@pages/EditTrainPage";
 
 (async () => {
   await user.auth();
@@ -32,6 +34,8 @@ const App = observer(() => {
               <Route path="users" element={<AllUsersPage />} />
               <Route path="users/:id" element={<EditUserPage />} />
               <Route path="create" element={<AddTrainPage />} />
+              <Route path="train" element={<AllTrainPage />} />
+              <Route path="train/:id" element={<EditTrainPage />} />
             </Route>
           </Routes>
         </DefaultLayout>
