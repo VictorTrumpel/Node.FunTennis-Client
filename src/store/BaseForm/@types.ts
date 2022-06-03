@@ -5,7 +5,8 @@ export type PrimitiveFieldValue =
   | undefined
   | boolean
   | bigint
-  | string[];
+  | string[]
+  | Date;
 
 export type FieldValue = PrimitiveFieldValue | PrimitiveFieldValue[];
 export type FieldState = {

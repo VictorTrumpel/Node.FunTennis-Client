@@ -8,6 +8,7 @@ import { InputUserTab } from "./InputUserTab";
 import get from "lodash.get";
 import { toJS } from "mobx";
 import { UserInfo } from "@store/User/@types";
+import { FieldState } from "@store/BaseForm/@types";
 
 type InputUserProps = {
   name: string;
@@ -17,9 +18,10 @@ type InputUserProps = {
 
 export const InputUser = observer(
   ({ name, placeholder, role }: InputUserProps) => {
-    const { onChange, defaultValues } = useForm();
+    const { formState, onChange, defaultValues } = useForm();
 
     const defaultIds = useMemo(() => get(toJS(defaultValues), name), []);
+    const fieldState = get(toJS(formState), name) as FieldState;
 
     const [selectedUsersIds, setSelectedUsersIds] = useState<string[]>(
       defaultIds || []
@@ -63,9 +65,10 @@ export const InputUser = observer(
         </ul>
         <ModelInputAutocomplete
           name={name}
+          fieldState={fieldState}
           options={users}
           handleSelect={onUserSelect}
-          label={placeholder || name}
+          placeholder={placeholder || name}
         />
       </div>
     );
